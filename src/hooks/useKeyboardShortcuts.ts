@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 export interface Shortcut {
@@ -13,8 +13,9 @@ export interface Shortcut {
 export const useKeyboardShortcuts = (customShortcuts?: Shortcut[]) => {
   const router = useRouter();
   const [showHelp, setShowHelp] = useState(false);
+  const [pendingKey, setPendingKey] = useState<string | null>(null);
 
-  const defaultShortcuts: Shortcut[] = [
+  const defaultShortcuts: Shortcut[] = useMemo(() => [
     {
       key: "/",
       description: "Focus search",
@@ -65,10 +66,9 @@ export const useKeyboardShortcuts = (customShortcuts?: Shortcut[]) => {
       },
       category: "actions",
     },
-  ];
+  ], [router]);
 
-  const shortcuts = [...defaultShortcuts, ...(customShortcuts || [])];
-  const [pendingKey, setPendingKey] = useState<string | null>(null);
+  const shortcuts = useMemo(() => [...defaultShortcuts, ...(customShortcuts || [])], [defaultShortcuts, customShortcuts]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -137,7 +137,7 @@ export const useKeyboardShortcuts = (customShortcuts?: Shortcut[]) => {
         setTimeout(() => setPendingKey(null), 1000);
       }
     },
-    [shortcuts, pendingKey, router]
+    [shortcuts, pendingKey]
   );
 
   useEffect(() => {

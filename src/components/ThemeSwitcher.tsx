@@ -12,11 +12,19 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ compact = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<ThemeMode>("fusion");
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const hasInitializedRef = useRef(false);
   const { progress, setTheme } = useProgressContext();
 
   useEffect(() => {
-    setCurrentTheme((progress.theme as ThemeMode) || "fusion");
-  }, [progress.theme]);
+    const themeToSet = (progress.theme as ThemeMode) || "fusion";
+    
+    setTimeout(() => {
+      if (hasInitializedRef.current && currentTheme !== themeToSet) {
+        setCurrentTheme(themeToSet);
+      }
+      hasInitializedRef.current = true;
+    }, 0);
+  }, [progress.theme, currentTheme, setCurrentTheme]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

@@ -23,7 +23,6 @@ interface ToastData {
 
 interface ProgressContextType {
   progress: ProgressData;
-  mounted: boolean;
   toggleDone: (questionId: string) => void;
   toggleBookmark: (questionId: string) => void;
   isQuestionDone: (questionId: string) => boolean;
@@ -63,7 +62,6 @@ export const ProgressProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const {
     progress,
-    mounted,
     toggleDone: baseToggleDone,
     toggleBookmark: baseToggleBookmark,
     undoLastAction,
@@ -93,16 +91,21 @@ export const ProgressProvider: React.FC<{ children: ReactNode }> = ({
   const [currentAchievement, setCurrentAchievement] =
     useState<Achievement | null>(null);
   const toastIdRef = useRef(0);
+  const hasCheckedAchievementsRef = useRef(false);
 
   // Check for pending achievement notifications
   useEffect(() => {
-    if (!mounted) return;
+    if (hasCheckedAchievementsRef.current) return;
 
     const nextAchievement = getNextPendingNotification();
-    if (nextAchievement && !currentAchievement) {
-      setCurrentAchievement(nextAchievement);
-    }
-  }, [mounted, getNextPendingNotification, currentAchievement]);
+    
+    setTimeout(() => {
+      if (nextAchievement && !currentAchievement) {
+        setCurrentAchievement(nextAchievement);
+      }
+      hasCheckedAchievementsRef.current = true;
+    }, 0);
+  }, [getNextPendingNotification, currentAchievement]);
 
   const handleAchievementDismiss = () => {
     if (currentAchievement) {
@@ -163,7 +166,6 @@ export const ProgressProvider: React.FC<{ children: ReactNode }> = ({
     <ProgressContext.Provider
       value={{
         progress,
-        mounted,
         toggleDone,
         toggleBookmark,
         isQuestionDone,
