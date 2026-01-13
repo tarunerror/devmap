@@ -311,31 +311,36 @@ export const useAchievements = () => {
     unlocked: [],
     pendingNotifications: [],
   });
-  const [mounted, setMounted] = useState(false);
-  const hasInitialized = useRef(false);
+  const hasLoadedDataRef = useRef(false);
 
   // Load from localStorage
   useEffect(() => {
-    if (hasInitialized.current) return;
-    hasInitialized.current = true;
+    if (hasLoadedDataRef.current) return;
+    hasLoadedDataRef.current = true;
 
     const saved = localStorage.getItem(STORAGE_KEY);
+    const stateToSet = {
+      unlocked: [],
+      pendingNotifications: [],
+    };
+
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        setState(parsed);
+        Object.assign(stateToSet, parsed);
       } catch {
         // Invalid JSON, start fresh
       }
     }
-    setMounted(true);
+    const timer = setTimeout(() => setState(stateToSet), 0);
+    return () => clearTimeout(timer);
   }, []);
 
   // Save to localStorage
   useEffect(() => {
-    if (!mounted) return;
+    if (!hasLoadedDataRef.current) return;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [state, mounted]);
+  }, [state]);
 
   const isUnlocked = useCallback(
     (achievementId: string): boolean => {
@@ -481,7 +486,6 @@ export const useAchievements = () => {
     getAchievementsByCategory,
     getUnlockedAchievements,
     getRarityColor,
-    mounted,
   };
 };
 

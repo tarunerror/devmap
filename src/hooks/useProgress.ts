@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   XP_PER_QUESTION,
   STORAGE_KEYS,
@@ -51,7 +51,7 @@ const getDefaultProgress = (): ProgressData => ({
 
 export const useProgress = () => {
   const [progress, setProgress] = useState<ProgressData>(getDefaultProgress());
-  const [mounted, setMounted] = useState(false);
+  const hasLoadedProgressRef = useRef(false);
   const [lastAction, setLastAction] = useState<{
     type: "done" | "bookmark";
     questionId: string;
@@ -60,13 +60,23 @@ export const useProgress = () => {
 
   // Load from localStorage on mount
   useEffect(() => {
-    setMounted(true);
+    if (hasLoadedProgressRef.current) return;
+
     try {
       const stored = localStorage.getItem(STORAGE_KEYS.PROGRESS);
+      const progressToSet = getDefaultProgress();
+
       if (stored) {
-        const parsed = JSON.parse(stored);
-        setProgress({ ...getDefaultProgress(), ...parsed });
+        try {
+          const parsed = JSON.parse(stored);
+          Object.assign(progressToSet, parsed);
+        } catch (error) {
+          console.error("Failed to parse progress:", error);
+        }
       }
+      const timer = setTimeout(() => setProgress(progressToSet), 0);
+      hasLoadedProgressRef.current = true;
+      return () => clearTimeout(timer);
     } catch (error) {
       console.error("Failed to load progress:", error);
     }
@@ -74,14 +84,14 @@ export const useProgress = () => {
 
   // Save to localStorage whenever progress changes
   useEffect(() => {
-    if (mounted) {
+    if (hasLoadedProgressRef.current) {
       try {
         localStorage.setItem(STORAGE_KEYS.PROGRESS, JSON.stringify(progress));
       } catch (error) {
         console.error("Failed to save progress:", error);
       }
     }
-  }, [progress, mounted]);
+  }, [progress]);
 
   const toggleDone = useCallback((questionId: string) => {
     setProgress((prev) => {
@@ -282,7 +292,6 @@ export const useProgress = () => {
 
   return {
     progress,
-    mounted,
     lastAction,
     toggleDone,
     toggleBookmark,

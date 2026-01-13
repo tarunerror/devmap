@@ -354,28 +354,36 @@ const StatCard = ({
 );
 
 export default function StatsPage() {
-  const [mounted, setMounted] = useState(false);
   const [darkMode, setDarkModeState] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const hasInitializedRef = React.useRef(false);
   const { progress, getCompletedCount, setDarkMode } = useProgressContext();
 
   useEffect(() => {
-    setMounted(true);
+    if (hasInitializedRef.current) return;
+
+    // Get dark mode from progress context or fallback
     const savedProgress = localStorage.getItem("dsa-progress");
-    if (savedProgress) {
-      const parsed = JSON.parse(savedProgress);
-      setDarkModeState(parsed.darkMode || false);
-    }
-  }, []);
+    const darkModeToSet = savedProgress
+      ? (JSON.parse(savedProgress)?.darkMode ?? false)
+      : false;
+
+    setTimeout(() => {
+      setDarkModeState(darkModeToSet);
+      setIsMounted(true);
+      hasInitializedRef.current = true;
+    }, 0);
+  }, [setDarkModeState, setIsMounted]);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!isMounted) return;
     if (darkMode) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
     setDarkMode(darkMode);
-  }, [darkMode, mounted, setDarkMode]);
+  }, [darkMode, setDarkMode, isMounted]);
 
   const toggleDarkMode = () => {
     setDarkModeState((prev) => !prev);
@@ -429,7 +437,7 @@ export default function StatsPage() {
   // Calculate interview readiness score
   const readinessScore = useMemo(() => {
     const totalCompleted = progress.stats.totalCompleted;
-    const totalQuestions = countAllQuestions({ data: ultimateData.data } as any);
+    const totalQuestions = countAllQuestions(ultimateData);
     const baseScore = (totalCompleted / totalQuestions) * 100;
 
     // Bonus for variety (completing across different topics)
@@ -444,7 +452,7 @@ export default function StatsPage() {
     return Math.min(100, Math.round(baseScore + varietyBonus + streakBonus));
   }, [progress.stats, topicProgress]);
 
-  if (!mounted) {
+  if (!isMounted) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
         <div className="animate-pulse text-gray-500">Loading...</div>
@@ -523,7 +531,7 @@ export default function StatsPage() {
           <StatCard
             title="Problems Solved"
             value={progress.stats.totalCompleted}
-            subtitle={`of ${countAllQuestions({ data: ultimateData.data } as any)} total`}
+            subtitle={`of ${countAllQuestions(ultimateData)} total`}
             icon={
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path

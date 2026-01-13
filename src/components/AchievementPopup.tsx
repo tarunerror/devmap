@@ -58,22 +58,17 @@ const AchievementPopup: React.FC<AchievementPopupProps> = ({
   }, [onDismiss]);
 
   useEffect(() => {
-    if (achievement) {
-      // Small delay before showing for smooth animation
-      const showTimer = setTimeout(() => setIsVisible(true), 100);
+    const showTimer = setTimeout(() => setIsVisible(true), 100);
 
-      // Auto dismiss after 5 seconds
-      const dismissTimer = setTimeout(() => {
-        handleDismiss();
-      }, 5000);
+    // Auto dismiss after 5 seconds
+    const dismissTimer = setTimeout(() => {
+      handleDismiss();
+    }, 5000);
 
-      return () => {
-        clearTimeout(showTimer);
-        clearTimeout(dismissTimer);
-      };
-    } else {
-      setIsVisible(false);
-    }
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(dismissTimer);
+    };
   }, [achievement, handleDismiss]);
 
   if (!achievement) return null;

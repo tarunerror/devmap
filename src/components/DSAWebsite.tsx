@@ -7,7 +7,7 @@ import ThemeSwitcher from "@/components/ThemeSwitcher";
 import TopicMap from "@/components/TopicMap";
 import DevMapLogo from "@/components/DevMapLogo";
 import { countAllQuestions, countQuestionsInContent } from "@/utils/countUtils";
-import type { UltimateData, Content, Category, Question } from "@/data/types";
+import type { UltimateData, Content } from "@/data/types";
 
 // Topic icons mapping with unique colors
 const topicConfig: Record<
@@ -613,9 +613,9 @@ const ScrollToTop = () => {
 };
 
 const DSAWebsite = ({ data }: { data: UltimateData }) => {
-  const [mounted, setMounted] = useState(false);
   const [darkMode, setDarkModeState] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
   const [randomQuote] = useState<{ quote: string; author: string }>(() => {
     const quoteIndex = Math.floor(
       Math.random() * data.data.header.motivationalQuotes.length,
@@ -624,6 +624,8 @@ const DSAWebsite = ({ data }: { data: UltimateData }) => {
   });
 
   const { progress, getCompletedCount, setDarkMode } = useProgressContext();
+
+  const hasInitializedRef = React.useRef(false);
 
   // Get all question IDs for total progress calculation
   const allQuestionIds = useMemo(() => {
@@ -637,23 +639,25 @@ const DSAWebsite = ({ data }: { data: UltimateData }) => {
   const totalCompleted = getCompletedCount(allQuestionIds);
 
   useEffect(() => {
-    setMounted(true);
+    if (hasInitializedRef.current) return;
+
     // Get dark mode from progress context or fallback
     const savedProgress = localStorage.getItem("dsa-progress");
-    if (savedProgress) {
-      const parsed = JSON.parse(savedProgress);
-      setDarkModeState(parsed.darkMode || false);
-    } else {
-      const savedTheme = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      ).matches;
-      setDarkModeState(savedTheme === "dark" || (!savedTheme && prefersDark));
-    }
-  }, []);
+    const darkModeToSet = savedProgress
+      ? (JSON.parse(savedProgress)?.darkMode ?? false)
+      : localStorage.getItem("theme") === "dark" ||
+        (!localStorage.getItem("theme") &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+    setTimeout(() => {
+      setDarkModeState(darkModeToSet);
+      setIsMounted(true);
+      hasInitializedRef.current = true;
+    }, 0);
+  }, [setDarkModeState, setIsMounted]);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!isMounted) return;
 
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -661,7 +665,7 @@ const DSAWebsite = ({ data }: { data: UltimateData }) => {
       document.documentElement.classList.remove("dark");
     }
     setDarkMode(darkMode);
-  }, [darkMode, mounted, setDarkMode]);
+  }, [darkMode, setDarkMode, isMounted]);
 
   const toggleDarkMode = () => {
     setDarkModeState((prev) => !prev);
@@ -691,7 +695,7 @@ const DSAWebsite = ({ data }: { data: UltimateData }) => {
   }, [data.data.content, searchQuery]);
 
   // Loading skeleton
-  if (!mounted) {
+  if (!isMounted) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <header className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
