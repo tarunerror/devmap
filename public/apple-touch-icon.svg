@@ -1,0 +1,27 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" rx="40" fill="#0f172a"/>
+  <circle cx="90" cy="63" r="50" fill="url(#g1)"/>
+  <path d="M90 113C90 113 40 75 40 63C40 34 61 15 90 15C119 15 140 34 140 63C140 75 90 113 90 113Z" fill="url(#g2)" stroke="#1e293b" stroke-width="3"/>
+  <path d="M72 54L62 63L72 72" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M108 54L118 63L108 72" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M95 50L85 76" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <path d="M90 113Q55 127 36 152Q32 158 36 164" stroke="url(#g3)" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M90 113Q125 127 144 152Q148 158 144 164" stroke="url(#g3)" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <circle cx="36" cy="164" r="7" fill="#a855f7"/>
+  <circle cx="90" cy="135" r="7" fill="#8b5cf6"/>
+  <circle cx="144" cy="164" r="7" fill="#a855f7"/>
+  <defs>
+    <linearGradient id="g1" x1="40" y1="15" x2="140" y2="113">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="40" y1="15" x2="140" y2="113">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="36" y1="113" x2="144" y2="164">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+</svg>

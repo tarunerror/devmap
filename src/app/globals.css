@@ -1,26 +1,611 @@
 @import "tailwindcss";
 
+@theme {
+    --color-background: light-dark(#f8fafc, #030712);
+    --color-foreground: light-dark(#0f172a, #f1f5f9);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #f8fafc;
+    --foreground: #0f172a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+    --background: #030712;
+    --foreground: #f1f5f9;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+
+/* Mobile-first responsive breakpoints */
+@media (max-width: 640px) {
+    /* Small screens - better touch targets */
+    button,
+    a,
+    input,
+    select,
+    textarea {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Reduced font sizes for mobile */
+    html {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Better mobile tap highlights */
+* {
+    -webkit-tap-highlight-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Mobile-friendly images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Touch-friendly spacing */
+@media (hover: none) and (pointer: coarse) {
+    /* Touch devices */
+    .interactive {
+        padding: 0.75rem;
+    }
+}
+
+/* Smooth scrolling */
+* {
+    scroll-behavior: smooth;
+}
+
+/* Better selection colors */
+::selection {
+    background-color: rgba(59, 130, 246, 0.3);
+    color: inherit;
+}
+
+.dark ::selection {
+    background-color: rgba(96, 165, 250, 0.4);
+}
+
+/* Link transitions */
+a {
+    transition: all 0.2s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+/* Focus outline styles */
+*:focus-visible {
+    outline: 2px solid rgba(59, 130, 246, 0.5);
+    outline-offset: 2px;
+}
+
+/* Prevent content shift during hydration */
+html {
+    overflow-y: scroll;
+}
+
+/* Animate pulse for loading skeleton */
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Gradient text helper */
+.text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Glass effect helper */
+.glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Hover lift effect */
+.hover-lift {
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 10px 25px -5px rgba(0, 0, 0, 0.1),
+        0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.dark .hover-lift:hover {
+    box-shadow:
+        0 10px 25px -5px rgba(0, 0, 0, 0.4),
+        0 8px 10px -6px rgba(0, 0, 0, 0.4);
+}
+
+/* Animation delays */
+.animation-delay-100 {
+    animation-delay: 100ms;
+}
+
+.animation-delay-150 {
+    animation-delay: 150ms;
+}
+
+.animation-delay-200 {
+    animation-delay: 200ms;
+}
+
+/* ============================================
+   THEME: Terminal Mode
+   ============================================ */
+.theme-terminal {
+    --background: #0a0a0a;
+    --foreground: #22c55e;
+}
+
+.theme-terminal.dark {
+    --background: #000000;
+    --foreground: #4ade80;
+}
+
+/* Scanline effect for terminal theme */
+.theme-terminal::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.3;
+}
+
+.theme-terminal ::selection {
+    background-color: rgba(34, 197, 94, 0.4);
+}
+
+/* Terminal scrollbar */
+.theme-terminal ::-webkit-scrollbar-thumb {
+    background: #22c55e;
+}
+
+.theme-terminal ::-webkit-scrollbar-thumb:hover {
+    background: #4ade80;
+}
+
+/* ============================================
+   THEME: Zen Mode
+   ============================================ */
+.theme-zen {
+    --background: #fafaf9;
+    --foreground: #44403c;
+}
+
+.theme-zen.dark {
+    --background: #1c1917;
+    --foreground: #d6d3d1;
+}
+
+.theme-zen ::selection {
+    background-color: rgba(120, 113, 108, 0.3);
+}
+
+/* Zen scrollbar - minimal */
+.theme-zen ::-webkit-scrollbar {
+    width: 6px;
+}
+
+.theme-zen ::-webkit-scrollbar-thumb {
+    background: #a8a29e;
+    border-radius: 3px;
+}
+
+/* ============================================
+   THEME: Quest Mode (Gamification)
+   ============================================ */
+.theme-quest {
+    --background: #faf5ff;
+    --foreground: #581c87;
+}
+
+.theme-quest.dark {
+    --background: #0f0520;
+    --foreground: #e9d5ff;
+}
+
+.theme-quest ::selection {
+    background-color: rgba(168, 85, 247, 0.4);
+}
+
+/* Quest scrollbar - purple */
+.theme-quest ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #a855f7, #7c3aed);
+}
+
+/* XP gain animation */
+@keyframes xp-gain {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-30px) scale(1.2);
+        opacity: 0;
+    }
+}
+
+.xp-popup {
+    animation: xp-gain 1s ease-out forwards;
+}
+
+/* Level up glow */
+@keyframes level-glow {
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(168, 85, 247, 0.8);
+    }
+}
+
+.level-up-glow {
+    animation: level-glow 2s ease-in-out infinite;
+}
+
+/* ============================================
+   THEME: Modern Mode
+   ============================================ */
+.theme-modern {
+    --background: #ffffff;
+    --foreground: #18181b;
+}
+
+.theme-modern.dark {
+    --background: #09090b;
+    --foreground: #fafafa;
+}
+
+.theme-modern ::selection {
+    background-color: rgba(24, 24, 27, 0.2);
+}
+
+.theme-modern.dark ::selection {
+    background-color: rgba(250, 250, 250, 0.2);
+}
+
+/* Modern grain overlay */
+.theme-modern::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.02;
+}
+
+/* ============================================
+   THEME: Retro Mode (Pixel Art)
+   ============================================ */
+.theme-retro {
+    --background: #1a1a2e;
+    --foreground: #eee;
+}
+
+.theme-retro.dark {
+    --background: #0f0f1a;
+    --foreground: #fff;
+}
+
+.theme-retro ::selection {
+    background-color: rgba(236, 72, 153, 0.5);
+}
+
+/* Retro scrollbar - chunky */
+.theme-retro ::-webkit-scrollbar {
+    width: 14px;
+}
+
+.theme-retro ::-webkit-scrollbar-thumb {
+    background: #ec4899;
+    border-radius: 0;
+    border: 2px solid #1a1a2e;
+}
+
+.theme-retro ::-webkit-scrollbar-track {
+    background: #16213e;
+}
+
+/* CRT screen effect for retro */
+.theme-retro::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 0%,
+        rgba(0, 0, 0, 0.3) 100%
+    );
+    pointer-events: none;
+    z-index: 9997;
+}
+
+/* Pixel font animation */
+@keyframes pixel-blink {
+    0%,
+    49% {
+        opacity: 1;
+    }
+    50%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.pixel-cursor::after {
+    content: "_";
+    animation: pixel-blink 1s step-end infinite;
+}
+
+/* ============================================
+   SHARED ANIMATIONS
+   ============================================ */
+
+/* Confetti animation */
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100%) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.confetti {
+    animation: confetti-fall 3s ease-in forwards;
+}
+
+/* Celebration burst */
+@keyframes burst {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.celebration-burst {
+    animation: burst 0.6s ease-out forwards;
+}
+
+/* Streak flame animation */
+@keyframes flame {
+    0%,
+    100% {
+        transform: scaleY(1) translateY(0);
+    }
+    50% {
+        transform: scaleY(1.1) translateY(-2px);
+    }
+}
+
+.flame-animate {
+    animation: flame 0.5s ease-in-out infinite;
+}
+
+/* Glow pulse */
+@keyframes glow-pulse {
+    0%,
+    100% {
+        filter: drop-shadow(0 0 5px currentColor);
+    }
+    50% {
+        filter: drop-shadow(0 0 15px currentColor);
+    }
+}
+
+.glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Slide in animations */
+@keyframes slide-in-from-top {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-from-bottom {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-in {
+    animation-duration: 200ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+.fade-in {
+    animation-name: fade-in;
+}
+
+.slide-in-from-top-2 {
+    animation-name: slide-in-from-top;
+}
+
+.slide-in-from-bottom-2 {
+    animation-name: slide-in-from-bottom;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Page transition */
+@keyframes page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-enter {
+    animation: page-enter 0.4s ease-out;
+}
+
+/* Typing effect for terminal */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.typing-effect {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(40, end);
+}
+
+/* Progress bar shimmer */
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.progress-shimmer {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
 }

@@ -1,0 +1,104 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+
+  <!-- Grid pattern overlay -->
+  <g opacity="0.1">
+    <path d="M0 0 L1200 0" stroke="white" stroke-width="1"/>
+    <path d="M0 157.5 L1200 157.5" stroke="white" stroke-width="1"/>
+    <path d="M0 315 L1200 315" stroke="white" stroke-width="1"/>
+    <path d="M0 472.5 L1200 472.5" stroke="white" stroke-width="1"/>
+    <path d="M0 630 L1200 630" stroke="white" stroke-width="1"/>
+    <path d="M300 0 L300 630" stroke="white" stroke-width="1"/>
+    <path d="M600 0 L600 630" stroke="white" stroke-width="1"/>
+    <path d="M900 0 L900 630" stroke="white" stroke-width="1"/>
+  </g>
+
+  <!-- Large DevMap Logo -->
+  <g transform="translate(150, 180)">
+    <circle cx="120" cy="80" r="70" fill="url(#logoGradient1)" opacity="0.8"/>
+    <path d="M120 150C120 150 50 110 50 80C50 43.58 80.58 15 120 15C159.42 15 190 43.58 190 80C190 110 120 150 120 150Z"
+          fill="url(#logoGradient2)" stroke="white" stroke-width="4"/>
+    <path d="M95 65L80 80L95 95" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M145 65L160 80L145 95" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M130 60L110 100" stroke="white" stroke-width="8" stroke-linecap="round"/>
+    <path d="M120 150Q75 170 45 205Q38 213 45 220" stroke="url(#routeGradient)" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <path d="M120 150Q165 170 195 205Q202 213 195 220" stroke="url(#routeGradient)" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <circle cx="45" cy="220" r="8" fill="#a855f7"/>
+    <circle cx="120" cy="180" r="8" fill="#8b5cf6"/>
+    <circle cx="195" cy="220" r="8" fill="#a855f7"/>
+  </g>
+
+  <!-- Text content -->
+  <text x="450" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="80" font-weight="bold" fill="white">
+    DevMap
+  </text>
+  <text x="450" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="rgba(255,255,255,0.9)">
+    Your DSA Journey
+  </text>
+
+  <!-- Feature badges -->
+  <g transform="translate(450, 360)">
+    <rect width="180" height="50" rx="25" fill="rgba(255,255,255,0.1)"/>
+    <text x="90" y="32" font-family="system-ui" font-size="20" fill="white" text-anchor="middle">
+      Progress Tracking
+    </text>
+  </g>
+
+  <g transform="translate(660, 360)">
+    <rect width="160" height="50" rx="25" fill="rgba(255,255,255,0.1)"/>
+    <text x="80" y="32" font-family="system-ui" font-size="20" fill="white" text-anchor="middle">
+      Achievements
+    </text>
+  </g>
+
+  <g transform="translate(850, 360)">
+    <rect width="140" height="50" rx="25" fill="rgba(255,255,255,0.1)"/>
+    <text x="70" y="32" font-family="system-ui" font-size="20" fill="white" text-anchor="middle">
+      Dark Mode
+    </text>
+  </g>
+
+  <!-- Stats -->
+  <g transform="translate(450, 480)">
+    <text font-family="system-ui" font-size="48" font-weight="bold" fill="#4ade80">
+      1000+
+    </text>
+    <text x="0" y="35" font-family="system-ui" font-size="20" fill="rgba(255,255,255,0.7)">
+      Curated Problems
+    </text>
+  </g>
+
+  <g transform="translate(700, 480)">
+    <text font-family="system-ui" font-size="48" font-weight="bold" fill="#60a5fa">
+      15+
+    </text>
+    <text x="0" y="35" font-family="system-ui" font-size="20" fill="rgba(255,255,255,0.7)">
+      Topics Covered
+    </text>
+  </g>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#312e81"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+
+    <linearGradient id="logoGradient1" x1="50" y1="15" x2="190" y2="150">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+
+    <linearGradient id="logoGradient2" x1="50" y1="15" x2="190" y2="150">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+
+    <linearGradient id="routeGradient" x1="45" y1="150" x2="195" y2="220">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+</svg>

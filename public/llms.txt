@@ -1,0 +1,69 @@
+# DevMap - Your DSA Journey
+# LLM Context File
+
+## Overview
+DevMap is a comprehensive Data Structures and Algorithms (DSA) learning platform designed to guide developers through their coding journey with interactive progress tracking, achievements, and structured learning paths.
+
+## Key Features
+- **Progress Tracking**: Track completion status across all DSA topics and questions
+- **Achievement System**: Earn achievements and XP as you complete problems
+- **Interactive UI**: Dark mode support, theme customization, keyboard shortcuts
+- **Topic-based Learning**: Organized learning path covering all major DSA topics
+- **Personal Notes**: Add notes to questions for future reference
+- **Statistics Dashboard**: View detailed stats on your learning progress
+- **Motivational Quotes**: Daily inspiration to keep you motivated
+
+## Technology Stack
+- **Framework**: Next.js 16.1.1 (React 19.2.3)
+- **Styling**: Tailwind CSS 4
+- **Language**: TypeScript 5
+- **State Management**: React Context API
+- **Storage**: LocalStorage for progress persistence
+
+## Project Structure
+- `/src/app` - Next.js app directory with pages and layouts
+- `/src/components` - Reusable React components
+- `/src/data` - DSA content data and type definitions
+- `/src/utils` - Utility functions for counting and progress calculations
+- `/src/hooks` - Custom React hooks
+- `/public` - Static assets including favicon and icons
+
+## Main Components
+- **DSAWebsite**: Main application component with topic navigation
+- **ProgressProvider**: Context provider for progress state management
+- **TopicMap**: Visual representation of learning path
+- **ThemeSwitcher**: Theme and dark mode controls
+- **AchievementPopup**: Celebration UI for completed milestones
+- **MarkAsDone**: Question completion tracker
+- **KeyboardShortcutsModal**: Keyboard navigation help
+
+## Data Structure
+Topics are organized hierarchically:
+- Topics (e.g., Arrays, Sorting, Dynamic Programming)
+- Categories (subsections within topics)
+- Questions (individual problems with links and metadata)
+
+## Brand Identity
+- **Name**: DevMap
+- **Tagline**: Your DSA Journey
+- **Logo**: Map pin with code brackets, representing navigation through coding challenges
+- **Colors**: Blue to purple gradient (indigo, violet)
+
+## Learning Approach
+DevMap follows structured learning paths inspired by popular coding education platforms, helping developers:
+1. Learn fundamental concepts
+2. Practice with curated problems
+3. Track progress systematically
+4. Build consistent coding habits
+5. Achieve meastery through gamification
+
+## Target Audience
+- Computer science students
+- Software engineering interview candidates
+- Developers improving algorithmic skills
+- Self-taught programmers building foundations
+
+## Contact & Resources
+- Platform integrations: LeetCode, GeeksforGeeks, TakeUForward
+- Progress stored locally for privacy
+- No account required - start learning immediately
