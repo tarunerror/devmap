@@ -11,7 +11,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.x-38bdf8?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 
-[Live Demo](#) • [Features](#features) • [Getting Started](#getting-started) • [Contributing](#contributing)
+[Live Demo](devmmap.netlify.app/) • [Features](#features) • [Getting Started](#getting-started) • [Contributing](#contributing)
 
 </div>
 
