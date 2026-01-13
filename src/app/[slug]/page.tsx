@@ -7,7 +7,10 @@ import { useProgressContext } from "@/components/ProgressProvider";
 import MarkAsDone from "@/components/MarkAsDone";
 import NoteButton from "@/components/NoteButton";
 import type { Question, Category } from "@/data/types";
-import { countQuestionsInContent, countQuestionsInCategory } from "@/utils/countUtils";
+import {
+  countQuestionsInContent,
+  countQuestionsInCategory,
+} from "@/utils/countUtils";
 
 const ProgressRing = ({
   progress,
@@ -187,7 +190,9 @@ const QuestionCard = ({ question }: { question: Question }) => {
             {/* Note button */}
             <NoteButton
               note={note}
-              onSave={(newNote) => updateQuestionNote(question.questionId, newNote)}
+              onSave={(newNote) =>
+                updateQuestionNote(question.questionId, newNote)
+              }
             />
 
             {/* Expand/collapse toggle */}
@@ -306,9 +311,7 @@ const CategorySection = ({ category }: { category: Category }) => {
   const questionIds = category.questionList.map((q) => q.questionId);
   const completedCount = getCompletedCount(questionIds);
   const categoryTotalQuestions = countQuestionsInCategory(category);
-  const progress = Math.round(
-    (completedCount / categoryTotalQuestions) * 100,
-  );
+  const progress = Math.round((completedCount / categoryTotalQuestions) * 100);
 
   return (
     <div className="mb-4">
@@ -382,8 +385,23 @@ export default function TopicPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const [mounted, setMounted] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      const savedProgress = localStorage.getItem("dsa-progress");
+      if (savedProgress) {
+        return JSON.parse(savedProgress)?.darkMode ?? false;
+      }
+      return (
+        localStorage.getItem("theme") === "dark" ||
+        (!localStorage.getItem("theme") &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      );
+    } catch {
+      return false;
+    }
+  });
+  const [isMounted, setIsMounted] = useState(false);
   const resolvedParams = use(params);
   const {
     progress,
@@ -392,30 +410,19 @@ export default function TopicPage({
   } = useProgressContext();
 
   useEffect(() => {
-    setMounted(true);
-    // Get dark mode from progress context or fallback
-    const savedProgress = localStorage.getItem("dsa-progress");
-    if (savedProgress) {
-      const parsed = JSON.parse(savedProgress);
-      setDarkMode(parsed.darkMode || false);
-    } else {
-      const savedTheme = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      ).matches;
-      setDarkMode(savedTheme === "dark" || (!savedTheme && prefersDark));
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Necessary for client-only hydration
+    setIsMounted(true);
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!isMounted) return;
     if (darkMode) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
     saveDarkMode(darkMode);
-  }, [darkMode, mounted, saveDarkMode]);
+  }, [darkMode, isMounted, saveDarkMode]);
 
   const toggleDarkMode = () => {
     setDarkMode((prev) => !prev);
@@ -428,7 +435,7 @@ export default function TopicPage({
       resolvedParams.slug.toLowerCase(),
   );
 
-  if (!mounted) {
+  if (!isMounted) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
         <div className="animate-pulse text-gray-500">Loading...</div>
