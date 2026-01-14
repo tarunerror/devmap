@@ -1,13 +1,53 @@
 @import "tailwindcss";
 
 @theme {
-    --color-background: light-dark(#f8fafc, #030712);
-    --color-foreground: light-dark(#0f172a, #f1f5f9);
+    --color-background: light-dark(#f8fafc, #0c1222);
+    --color-foreground: light-dark(#1e293b, #e2e8f0);
 }
 
 :root {
     --background: #f8fafc;
-    --foreground: #0f172a;
+    --foreground: #1e293b;
+
+    /* Primary Brand Colors - Indigo/Violet */
+    --primary-50: #eef2ff;
+    --primary-100: #e0e7ff;
+    --primary-200: #c7d2fe;
+    --primary-300: #a5b4fc;
+    --primary-400: #818cf8;
+    --primary-500: #6366f1;
+    --primary-600: #4f46e5;
+    --primary-700: #4338ca;
+    --primary-800: #3730a3;
+    --primary-900: #312e81;
+
+    /* Secondary - Cyan/Teal */
+    --secondary-50: #ecfeff;
+    --secondary-100: #cffafe;
+    --secondary-200: #a5f3fc;
+    --secondary-300: #67e8f9;
+    --secondary-400: #22d3ee;
+    --secondary-500: #06b6d4;
+    --secondary-600: #0891b2;
+    --secondary-700: #0e7490;
+    --secondary-800: #155e75;
+    --secondary-900: #164e63;
+
+    /* Accent - Warm Amber for gamification */
+    --accent-50: #fffbeb;
+    --accent-100: #fef3c7;
+    --accent-200: #fde68a;
+    --accent-300: #fcd34d;
+    --accent-400: #fbbf24;
+    --accent-500: #f59e0b;
+    --accent-600: #d97706;
+    --accent-700: #b45309;
+    --accent-800: #92400e;
+    --accent-900: #78350f;
+
+    /* Success - Emerald */
+    --success-500: #10b981;
+    --success-600: #059669;
 }
 
 @theme inline {
@@ -18,8 +58,8 @@
 }
 
 .dark {
-    --background: #030712;
-    --foreground: #f1f5f9;
+    --background: #0c1222;
+    --foreground: #e2e8f0;
 }
 
 body {
@@ -66,7 +106,7 @@ body {
 
 /* Better mobile tap highlights */
 * {
-    -webkit-tap-highlight-color: rgba(59, 130, 246, 0.2);
+    -webkit-tap-highlight-color: rgba(99, 102, 241, 0.2);
 }
 
 /* Mobile-friendly images */
@@ -90,12 +130,12 @@ img {
 
 /* Better selection colors */
 ::selection {
-    background-color: rgba(59, 130, 246, 0.3);
+    background-color: rgba(99, 102, 241, 0.25);
     color: inherit;
 }
 
 .dark ::selection {
-    background-color: rgba(96, 165, 250, 0.4);
+    background-color: rgba(129, 140, 248, 0.35);
 }
 
 /* Link transitions */
@@ -114,33 +154,33 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #c7d2fe;
     border-radius: 5px;
     border: 2px solid transparent;
     background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: #a5b4fc;
     border: 2px solid transparent;
     background-clip: content-box;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-    background: #475569;
+    background: #4338ca;
     border: 2px solid transparent;
     background-clip: content-box;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-    background: #64748b;
+    background: #6366f1;
     border: 2px solid transparent;
     background-clip: content-box;
 }
 
 /* Focus outline styles */
 *:focus-visible {
-    outline: 2px solid rgba(59, 130, 246, 0.5);
+    outline: 2px solid rgba(99, 102, 241, 0.6);
     outline-offset: 2px;
 }
 
@@ -608,4 +648,38 @@ html {
     );
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
+}
+
+/* Staggered fade in animation for list items */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease-out forwards;
+    opacity: 0;
+}
+
+/* Pop animation for checkmarks */
+@keyframes pop {
+    0% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animate-pop {
+    animation: pop 0.2s ease-out forwards;
 }

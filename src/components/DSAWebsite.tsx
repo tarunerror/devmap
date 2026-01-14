@@ -394,7 +394,7 @@ const ProgressRing = ({
   progress,
   size = 48,
   strokeWidth = 4,
-  colorClass = "text-blue-500 dark:text-blue-400",
+  colorClass = "text-indigo-500 dark:text-indigo-400",
 }: {
   progress: number;
   size?: number;
@@ -485,7 +485,7 @@ const TopicSection = ({
             </div>
           </div>
 
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
             <HighlightText text={content.contentHeading} query={searchQuery} />
           </h2>
 
@@ -523,9 +523,9 @@ const TopicSection = ({
             </div>
           </div>
 
-          <div className="mt-4 p-2 rounded-xl bg-gray-100 dark:bg-gray-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50 transition-colors">
+          <div className="mt-4 p-2 rounded-xl bg-gray-100 dark:bg-gray-700 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/50 transition-colors">
             <svg
-              className="w-5 h-5 text-gray-500 group-hover:text-blue-500 transition-colors"
+              className="w-5 h-5 text-gray-500 group-hover:text-indigo-500 transition-colors"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -588,7 +588,7 @@ const ScrollToTop = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 p-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 z-50 ${
+      className={`fixed bottom-6 right-6 p-3 bg-gradient-to-r from-indigo-500 to-violet-600 text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 z-50 ${
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 translate-y-10 pointer-events-none"
@@ -733,7 +733,7 @@ const DSAWebsite = ({ data }: { data: UltimateData }) => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full opacity-0 group-hover:opacity-100 blur transition-opacity duration-300" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full opacity-0 group-hover:opacity-100 blur transition-opacity duration-300" />
                 <div className="relative">
                   <ProgressRing
                     progress={overallProgress}
@@ -839,7 +839,7 @@ const DSAWebsite = ({ data }: { data: UltimateData }) => {
 
               <div className="relative flex-1 sm:flex-none group">
                 <svg
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-blue-500 transition-colors"
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-indigo-500 transition-colors"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -856,7 +856,7 @@ const DSAWebsite = ({ data }: { data: UltimateData }) => {
                   placeholder="Search topics or questions..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full sm:w-72 pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 focus:bg-white dark:focus:bg-gray-800 outline-none transition-all text-sm"
+                  className="w-full sm:w-72 pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 focus:bg-white dark:focus:bg-gray-800 outline-none transition-all text-sm"
                 />
                 {searchQuery && (
                   <button
@@ -949,7 +949,7 @@ const DSAWebsite = ({ data }: { data: UltimateData }) => {
             </p>
             <button
               onClick={() => setSearchQuery("")}
-              className="px-6 py-2.5 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-xl transition-colors"
+              className="px-6 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-xl transition-colors"
             >
               Clear search
             </button>
@@ -1003,7 +1003,7 @@ const DSAWebsite = ({ data }: { data: UltimateData }) => {
               <div className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
                 <p className="flex items-center gap-2">
                   <svg
-                    className="w-4 h-4 text-blue-500"
+                    className="w-4 h-4 text-indigo-500"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -1055,7 +1055,7 @@ const DSAWebsite = ({ data }: { data: UltimateData }) => {
                   href="https://takeuforward.org"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                  className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors"
                 >
                   <svg
                     className="w-4 h-4"
