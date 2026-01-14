@@ -447,15 +447,16 @@ export default function TopicPage({
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900">
         <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Topic Not Found
+          <div className="text-6xl mb-6">🗺️</div>
+          <h1 className="text-4xl font-black text-gray-900 dark:text-white mb-4">
+            Quest Not Found
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 mb-8">
-            The topic you&apos;re looking for doesn&apos;t exist.
+          <p className="text-gray-500 dark:text-gray-400 mb-8 text-lg">
+            This territory hasn&apos;t been mapped yet.
           </p>
           <Link
             href="/"
-            className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-xl transition-colors inline-flex items-center gap-2"
+            className="px-8 py-4 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-2xl inline-flex items-center gap-3"
           >
             <svg
               className="w-5 h-5"
@@ -470,7 +471,7 @@ export default function TopicPage({
                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
               />
             </svg>
-            Back to Home
+            Return to Base Camp
           </Link>
         </div>
       </div>
