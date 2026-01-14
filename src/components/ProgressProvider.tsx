@@ -98,13 +98,15 @@ export const ProgressProvider: React.FC<{ children: ReactNode }> = ({
     if (hasCheckedAchievementsRef.current) return;
 
     const nextAchievement = getNextPendingNotification();
-    
-    setTimeout(() => {
+
+    const timer = setTimeout(() => {
       if (nextAchievement && !currentAchievement) {
         setCurrentAchievement(nextAchievement);
       }
       hasCheckedAchievementsRef.current = true;
     }, 0);
+
+    return () => clearTimeout(timer);
   }, [getNextPendingNotification, currentAchievement]);
 
   const handleAchievementDismiss = () => {

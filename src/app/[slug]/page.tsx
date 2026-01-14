@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, use } from "react";
+import { useState, useEffect, use } from "react";
 import Link from "next/link";
 import ultimateData from "@/data/ultimateData";
 import { useProgressContext } from "@/components/ProgressProvider";
