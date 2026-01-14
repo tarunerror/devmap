@@ -53,7 +53,7 @@ const Toast: React.FC<ToastProps> = ({
   const bgColor = {
     success:
       "bg-gradient-to-r from-emerald-500 to-green-600 dark:from-emerald-600 dark:to-green-700",
-    info: "bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-700",
+    info: "bg-gradient-to-r from-teal-500 to-cyan-600 dark:from-teal-600 dark:to-cyan-700",
     warning:
       "bg-gradient-to-r from-amber-500 to-orange-600 dark:from-amber-600 dark:to-orange-700",
   };

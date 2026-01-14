@@ -632,7 +632,7 @@ const TopicMap: React.FC = () => {
       {/* Drag instruction hint */}
       {draggedNode && (
         <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-xl text-center">
-          <p className="text-sm text-blue-600 dark:text-blue-400 font-medium">
+          <p className="text-sm text-teal-600 dark:text-teal-400 font-medium">
             Dragging {getNodeById(draggedNode)?.name}... Release to place.
           </p>
         </div>
